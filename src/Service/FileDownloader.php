@@ -1,8 +1,7 @@
 <?php
 
-namespace App;
+namespace App\Service;
 
-use App\FileClass;
 
 /**
  * Author: Luca De Nardis <lucadena80@gmail.com>
