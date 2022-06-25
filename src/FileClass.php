@@ -7,8 +7,18 @@ namespace App;
  */
 class FileClass
 {
-     public $contents;
-     public $httpCode;
-     public $errorDescription;
+    /**
+    * @var string
+    */
+    public $contents;
 
+    /**
+    * @var int
+    */
+    public $httpCode;
+
+    /**
+    * @var string
+    */
+    public $errorDescription;
 }

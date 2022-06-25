@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Command;
 
@@ -27,9 +29,14 @@ class HashCommand extends SymfonyCommand
             ->addArgument('url', InputArgument::IS_ARRAY | InputArgument::REQUIRED, 'remote url of the file');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    /**
+    * Calls the downloader service and outputs the result
+    *
+    * @return int      Returns 0 if the command succedded and 1 if the command failed
+    *
+    */
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
-        
         $output->write(sprintf("\033\143"));
         $output->writeln([
             '====**** File hash console App  ****====',
@@ -39,18 +46,26 @@ class HashCommand extends SymfonyCommand
         $failed = $this->hashFile($input, $output);
         if ($failed) {
             $helper = $this->getHelper('question');
-            $question = new ConfirmationQuestion('At least one file failed. Try Again? (y/n)' . "\n", false);
+            $question = new ConfirmationQuestion('<question>At least one file failed. Try Again? (y/n)</question>' . "\n", false);
 
             if ($helper->ask($input, $output, $question)) {
                 $failed = $this->hashFile($input, $output);
             }
+        } else {
+            $output->write('<info>All files have been processed without errors!</info>' . "\n");
         }
+        $output->write('BYE!');
         return $failed;
     }
 
+    /**
+     * Calls the downloader service and outputs the result
+     *
+     * @return int      Passes 0 if the download succedded and 1 if the download failed
+     *
+     */
     protected function hashFile(InputInterface $input, OutputInterface $output)
     {
-
         $file = new FileClass();
         $return = 0;
         foreach ($input->getArgument('url') as $url) {
@@ -60,7 +75,7 @@ class HashCommand extends SymfonyCommand
                 $output->write('Getting Contents of file at path: ' . $url . "\n");
                 $output->write('Hashed content: ' . $file->contents . "\n");
             } else {
-                $output->write('There was an error obtaining one file at path: ' . $url . "\n");
+                $output->write('<error>There was an error obtaining one file at path: ' . $url . "</error>\n");
                 $output->write('Error Description: ' . $file->errorDescription . "\n");
                 $return = 1;
             }
