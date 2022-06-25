@@ -12,6 +12,8 @@ use App\FileClass;
 
 class HashCommand extends SymfonyCommand
 {
+    private $fileDownloader;
+
     public function __construct(FileDownloader $fileDownloader)
     {
         parent::__construct();
@@ -27,10 +29,11 @@ class HashCommand extends SymfonyCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        
         $output->write(sprintf("\033\143"));
         $output->writeln([
             '====**** File hash console App  ****====',
-            '==========================================',
+            '========================================',
             '',
         ]);
         $failed = $this->hashFile($input, $output);
@@ -53,17 +56,15 @@ class HashCommand extends SymfonyCommand
         foreach ($input->getArgument('url') as $url) {
             $this->fileDownloader->downloadfile($url, $file);
 
-            if ($file->errorCode == '200') {
+            if ($file->httpCode == '200') {
                 $output->write('Getting Contents of file at path: ' . $url . "\n");
                 $output->write('Hashed content: ' . $file->contents . "\n");
             } else {
                 $output->write('There was an error obtaining one file at path: ' . $url . "\n");
-                $output->write('Error Code: ' . $file->errorCode . "\n");
                 $output->write('Error Description: ' . $file->errorDescription . "\n");
                 $return = 1;
             }
         }
-
 
         return $return;
     }

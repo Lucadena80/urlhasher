@@ -3,25 +3,33 @@
 namespace App\Service;
 
 
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
 /**
  * Author: Luca De Nardis <lucadena80@gmail.com>
  */
 class FileDownloader
 {
 
+     private $client;
+
+     public function __construct(HttpClientInterface $client)
+     {
+          $this->client = $client;
+     }
+
      public function downloadFile($url, $file)
      {
-
-          $curlSession = curl_init();
-          curl_setopt($curlSession, CURLOPT_URL, $url);
-          curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
-
-          $file->contents = (hash("md5", curl_exec($curlSession)));
-          $file->errorCode = curl_getinfo($curlSession, CURLINFO_HTTP_CODE);
-          $file->errorDescription = $file->statusDescription($file->errorCode);
-
-          curl_close($curlSession);
-
-          return $file;
+          try {
+               $response = $this->client->request(
+                    'GET',
+                    $url
+               );
+               $file->contents = (hash("md5", $response->getContent()));
+               $file->httpCode = $response->getStatusCode();
+               return $file;
+          } catch (\Exception $e) {
+               $file->errorDescription = $e->getMessage();
+          }
      }
 }
