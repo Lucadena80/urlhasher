@@ -26,7 +26,7 @@ class FileDownloader
      * @param string    $url The url from wich the download happens
      * @param object    $file The object where the data is written
      *
-     * @throws \exception When an invalid option is provided
+     * @throws \exception When a network error of any kind occours
      */
     public function downloadFile(String $url, FileClass $file)
     {
