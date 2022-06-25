@@ -1,7 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Service;
 
+use app\FileClass;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -18,7 +19,7 @@ class FileDownloader
           $this->client = $client;
      }
 
-     public function downloadFile($url, $file)
+     public function downloadFile(String $url, FileClass $file)
      {
           try {
                $response = $this->client->request(
@@ -29,6 +30,7 @@ class FileDownloader
                $file->httpCode = $response->getStatusCode();
                return $file;
           } catch (\Exception $e) {
+               $file->httpCode = 0;
                $file->errorDescription = $e->getMessage();
           }
      }
