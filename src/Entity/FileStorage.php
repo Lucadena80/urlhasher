@@ -32,11 +32,11 @@ class FileStorage
         return $this->contents;
     }
 
-     /**
-     * Setter for the hashed content of the file object.
-     *
-     * @param string   $Contents The hashed content of the file object
-     */
+    /**
+    * Setter for the hashed content of the file object.
+    *
+    * @param string   $Contents The hashed content of the file object
+    */
     public function setContents($contents)
     {
         $this->contents = $contents;
@@ -52,11 +52,11 @@ class FileStorage
         return $this->httpCode;
     }
 
-     /**
-     * Setter for the http status code of the request saved in the file object.
-     *
-     * @param string   $httpCode The http status code of the request in the file object
-     */
+    /**
+    * Setter for the http status code of the request saved in the file object.
+    *
+    * @param string   $httpCode The http status code of the request in the file object
+    */
     public function setHttpCode($httpCode)
     {
         $this->httpCode = $httpCode;
@@ -72,15 +72,13 @@ class FileStorage
         return $this->errorDescription;
     }
 
-     /**
-     * Setter for the http error description of the request saved in the file object.
-     *
-     * @param string   $errorDescription The http error description of the request saved in the file object.
-     */
+    /**
+    * Setter for the http error description of the request saved in the file object.
+    *
+    * @param string   $errorDescription The http error description of the request saved in the file object.
+    */
     public function setErrorDescription($errorDescription)
     {
         $this->errorDescription = $errorDescription;
     }
-
-    
 }

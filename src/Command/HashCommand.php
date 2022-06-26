@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use App\Service\FileDownloader;
 use App\Entity\FileStorage;
+
 class HashCommand extends SymfonyCommand
 {
     private $fileDownloader;
