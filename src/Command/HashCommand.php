@@ -10,8 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use App\Service\FileDownloader;
-use App\FileClass;
-
+use App\Entity\FileStorage;
 class HashCommand extends SymfonyCommand
 {
     private $fileDownloader;
@@ -25,6 +24,7 @@ class HashCommand extends SymfonyCommand
     protected function configure(): void
     {
         $this->setName("app:hash")
+            ->setDescription("Downloads a number of file from url passed by parameters, hashes them in md5 and outputs the result")
             ->setHelp('Retrieve content of the file and prints the hash')
             ->addArgument('url', InputArgument::IS_ARRAY | InputArgument::REQUIRED, 'remote url of the file');
     }
@@ -66,17 +66,17 @@ class HashCommand extends SymfonyCommand
      */
     protected function hashFile(InputInterface $input, OutputInterface $output)
     {
-        $file = new FileClass();
+        $file = new FileStorage();
         $return = 0;
         foreach ($input->getArgument('url') as $url) {
             $this->fileDownloader->downloadfile($url, $file);
 
-            if ($file->httpCode == '200') {
+            if ($file->getHttpCode() == '200') {
                 $output->write('Getting Contents of file at path: ' . $url . "\n");
-                $output->write('Hashed content: ' . $file->contents . "\n");
+                $output->write('Hashed content: ' . $file->getContents() . "\n");
             } else {
                 $output->write('<error>There was an error obtaining one file at path: ' . $url . "</error>\n");
-                $output->write('Error Description: ' . $file->errorDescription . "\n");
+                $output->write('Error Description: ' . $file->getErrorDescription() . "\n");
                 $return = 1;
             }
         }
