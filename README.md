@@ -52,11 +52,13 @@ To run all tests:
 
 # Explanation of the choices
 
+This CLI application was developed on php 8.1 and symfony 6.1
+
 Other than symfony I used **symfony/console**.
 the informations on how to create and develop a console interface in Symfony were obtained from [https://symfony.com/doc/current/components/console/]
 
 ## Structure of the application
-The application is made mainly of 3 files:
+The application is made mainly of 4 files:
 - First File src/Command/HashCommand.php
 
 This file is basically where the command is defined to the console and where the execution happens. This file does not have any code regarding the download and hashing of the file, altrough you will find there the management of retries when an error happens.

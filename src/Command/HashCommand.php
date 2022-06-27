@@ -38,6 +38,7 @@ class HashCommand extends SymfonyCommand
     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        #this command clears the screen. disable if needed
         $output->write(sprintf("\033\143"));
         $output->writeln([
             '====**** File hash console App  ****====',
