@@ -3,7 +3,7 @@
 use App\Entity\FileStorage;
 use PHPUnit\Framework\TestCase;
 
-final class FileDownloaderTest extends TestCase
+final class FileStorageTest extends TestCase
 {
      public function testSetContents_validValue_successful() 
      {
