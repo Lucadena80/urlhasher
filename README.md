@@ -34,37 +34,38 @@ As a bonus you could introduce one of the following things:
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
-## USAGE:
+# USAGE:
 from the application directory use the command
 `php bin/console app:hash <url>[mandatory] <url-2>...<url-n>`
 for example
 `php bin/console app:  http://speed.transip.nl/10mb.bin`
+or
 `php bin/console app:  http://speed.transip.nl/10mb.bin http://speed.transip.nl/random-10mb.bin`
 
-
-# Testing
+![PHP UNIT LOGO](https://upload.wikimedia.org/wikipedia/commons/f/f7/PHPUnit_Logo.svg)
+## Testing
 to run all tests:
 `php bin/phpunit`
 
-## Explanation of the choices
+# Explanation of the choices
 
-Other than symfony I used symfony/console.
-the informations on how to create and develop a console interface in Symfony were obtained from https://symfony.com/doc/current/components/console/
+Other than symfony I used **symfony/console**.
+the informations on how to create and develop a console interface in Symfony were obtained from [https://symfony.com/doc/current/components/console/]
 
-# Structure of the application
+## Structure of the application
 the application is made mainly of 3 files:
 - First File src/Command/HashCommand.php
 
 this file is basically where the command is defined to the console and where the execution happens. This file does not have any code regarding the download and hashing of the file, altrough you will find there the management of retries when an error happens.
 
-There are 2 main features that are worth noticing here, The first is the optional retry that is asked to the user if one (or more) downloads fail (by including Symfony\ConfirmationQuestion), the second feature is the (bonus) multiple remote file hashing.
+There are 2 main features that are worth noticing here, The first is the **optional retry** that is asked to the user if one (or more) downloads fail (by including Symfony\ConfirmationQuestion), the second feature is the (bonus) **multiple remote file hashing**.
 
 This was made by setting the argument to IS_ARRAY and cycling the downloadfile method for each url present. if even one of the urls gives a problem the application asks the user to retry as requested by the exercise.
 
 
 - Second File src/Service/FileDownloader
 
-INPUT: String $url, FileClass $file (used as Data Transfer Object)
+>INPUT: String $url, FileClass $file
 
 this is where the downloading of the file happens. For this I am using HttpClientInterface so I can let Symfony handle the download of the file before hashing it. I did chose a default hashing of "md5", however implementing a different hashing method added maybe via parameter would be simple.
 
