@@ -39,15 +39,12 @@ class FileDownloader
                $file->setContents(hash("md5", $response->getContent()));
                $file->setHttpCode($response->getStatusCode());
                return $file;
-          } catch (TransportExceptionInterface $e) {
-               $file->setHttpCode(0);
-               $file->setErrorDescription('[TransportExceptionInterface] ' .$e->getMessage());
           } catch (ClientExceptionInterface $e) {
                $file->setHttpCode($response->getStatusCode());
-               $file->setErrorDescription('[ClientExceptionInterface] ' . $e->getMessage());
-          } catch (ExceptionInterface $e) {
-               $file->setHttpCode($response->getStatusCode());
-               $file->setErrorDescription('[ExceptionInterface] ' . $e->getMessage());
+               $file->setErrorDescription($e->getMessage());
+          } catch (TransportExceptionInterface | ExceptionInterface $e) {
+               $file->setHttpCode(0);
+               $file->setErrorDescription($e->getMessage());
           }
      }
 }
