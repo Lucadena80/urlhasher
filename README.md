@@ -70,9 +70,15 @@ This was made by setting the argument to IS_ARRAY and cycling the downloadfile m
 
 >INPUT: String $url, FileClass $file
 
-This is where the downloading of the file happens. For this I am using HttpClientInterface so I can let Symfony handle the download of the file before hashing it. I did chose a default hashing of "md5", however implementing a different hashing method added maybe via parameter would be simple.
+This is where the downloading of the file happens. For this I am using HttpClientInterface so I can let Symfony handle the download of the file before hashing it by calling another service. 
 
-- The third file is src/Entity/FileStorage.php
+- Second File src/Service/FileDownloader
+
+>INPUT: String $url, FileClass $file
+
+This simple service handles the hashing of the content recovered from the url. I created a service because we can choose to use any other hashing method without changing the downloader service. I did chose a default hashing of "md5", however implementing a different hashing method would be simple.
+
+- The forth file is src/Entity/FileStorage.php
 
 This file creates a class for a file object that is instanced in HashCommand.php and sent to FileDownloader where it is populated with data that is verified for the retry mechanism.
 

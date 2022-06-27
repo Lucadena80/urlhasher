@@ -8,7 +8,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-
+use App\Service\FileHasher;
 /*
  * Author: Luca De Nardis <lucadena80@gmail.com>
  */
@@ -16,10 +16,12 @@ use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 class FileDownloader
 {
     private $client;
+    private $hasher;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, FileHasher $hasher)
     {
         $this->client = $client;
+        $this->hasher = $hasher;
     }
 
     /**
@@ -39,9 +41,8 @@ class FileDownloader
                 'GET',
                 $url
             );
-            $file->setContents(hash("md5", $response->getContent()));
+            $file->setContents($this->hasher->fileHasher($response->getContent()));
             $file->setHttpCode($response->getStatusCode());
-            return $file;
         } catch (ClientExceptionInterface $e) {
             $file->setHttpCode($response->getStatusCode());
             $file->setErrorDescription($e->getMessage());
