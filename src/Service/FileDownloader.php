@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 /*
