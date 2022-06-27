@@ -27,7 +27,9 @@ class FileDownloader
       * @param string    $url The url from wich the download happens
       * @param object    $file The object where the data is written
       *
-      * @throws \exception When a network error of any kind occours
+      * @throws \ClientExceptionInterface When the site drops an error code.
+      * @throws \TransportExceptionInterface When a network error occours.
+      * @throws \ExceptionInterface if other kind of errors happen.    
       */
      public function downloadFile($url, $file)
      {
