@@ -35,7 +35,12 @@ As a bonus you could introduce one of the following things:
 ---------------------------------------------------------------------------------------------------------------------------------
 
 ![SYMFONY LOGO](https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Symfony2.svg/640px-Symfony2.svg.png)
-# USAGE:
+# Installation:
+From the console type:
+`git clone https://github.com/Lucadena80/urlhasher.git`
+`composer install`
+
+# Usage:
 From the application directory use the command.
 `php bin/console app:hash <url>[mandatory] <url-2>...<url-n>`
 
