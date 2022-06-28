@@ -31,7 +31,7 @@ class HashCommand extends SymfonyCommand
     }
 
     /**
-    * Calls the downloader service and outputs the result
+    * Manages the start of the app and the retry mechanism
     *
     * @return int      Returns 0 if the command succedded and 1 if the command failed
     *
