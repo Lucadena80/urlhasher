@@ -79,9 +79,9 @@ This was made by setting the argument to IS_ARRAY and cycling the downloadfile m
 
 This is where the downloading of the file happens. For this I am using HttpClientInterface so I can let Symfony handle the download of the file before hashing it by calling another service. 
 
-- Second File src/Service/FileDownloader
+- Third File src/Service/FileHasher
 
->INPUT: String $url, FileClass $file
+>INPUT: String $content
 
 This simple service handles the hashing of the content recovered from the url. I created a service because we can choose to use any other hashing method without changing the downloader service. I did chose a default hashing of "md5", however implementing a different hashing method would be simple.
 
